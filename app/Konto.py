@@ -5,6 +5,7 @@ class Konto:
         self.imie = imie
         self.nazwisko = nazwisko
         self.saldo = 0
+        self.oplata_ekspres = 1
 
         if len(pesel) > 11 or len(pesel) < 11:
             self.pesel = "Niepoprawny pesel!"
@@ -32,3 +33,14 @@ class Konto:
             rok_urodzenia = 1900 + cyfry_rok_urodzenia
         
         return rok_urodzenia
+
+    def zaksieguj_przelew_wychodzacy(self, kwota):
+        if self.saldo >= kwota:
+            self.saldo -= kwota
+
+    def zaksieguj_przelew_przychodzacy(self, kwota):
+        self.saldo += kwota
+
+    def zaksieguj_przelew_ekspresowy(self, kwota):
+        if self.saldo >= kwota:
+            self.saldo -= kwota + self.oplata_ekspres
