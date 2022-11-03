@@ -13,7 +13,7 @@ class Konto:
             self.pesel = pesel
 
         if promo != None:
-            if self.sprawdz_rok_urodzenia(pesel) > 1960:
+            if self.sprawdz_rok_urodzenia() > 1960:
                 promo_match = re.match("PROM_[A-Z]{3}", promo)
                 if promo_match == None:
                     self.promo = "Niepoprawny kod promocyjny!"
@@ -23,9 +23,9 @@ class Konto:
             else:
                 self.promo = "Niestety nie możesz skorzystać z tej promocji"
         
-    def sprawdz_rok_urodzenia(self, pesel):
-        cyfry_rok_urodzenia = int(pesel[:2])
-        cyfry_miesiac_urodzenia = int(pesel[2:4])
+    def sprawdz_rok_urodzenia(self):
+        cyfry_rok_urodzenia = int(self.pesel[:2])
+        cyfry_miesiac_urodzenia = int(self.pesel[2:4])
 
         if (32 > cyfry_miesiac_urodzenia > 20):
             rok_urodzenia = 2000 + cyfry_rok_urodzenia
