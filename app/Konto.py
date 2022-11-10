@@ -6,6 +6,7 @@ class Konto:
         self.nazwisko = nazwisko
         self.saldo = 0
         self.oplata_ekspres = 1
+        self.historia = []
 
         if len(pesel) > 11 or len(pesel) < 11:
             self.pesel = "Niepoprawny pesel!"
@@ -37,10 +38,14 @@ class Konto:
     def zaksieguj_przelew_wychodzacy(self, kwota):
         if self.saldo >= kwota:
             self.saldo -= kwota
+            self.historia.append(-kwota)
 
     def zaksieguj_przelew_przychodzacy(self, kwota):
         self.saldo += kwota
+        self.historia.append(kwota)
 
     def zaksieguj_przelew_ekspresowy(self, kwota):
         if self.saldo >= kwota:
-            self.saldo -= kwota + self.oplata_ekspres
+            self.saldo -= kwota + self.oplata_ekspres  
+            self.historia.append(-kwota)
+            self.historia.append(-self.oplata_ekspres)
