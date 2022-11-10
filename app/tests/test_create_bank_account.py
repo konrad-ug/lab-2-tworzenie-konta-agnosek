@@ -41,3 +41,8 @@ class TestCreateBankAccount(unittest.TestCase):
         przed_1960_pesel = "56111521491"
         promo_przed_1960_konto = Konto(self.imie, self.nazwisko, przed_1960_pesel, popr_promo)
         self.assertEqual(promo_przed_1960_konto.promo, "Niestety nie możesz skorzystać z tej promocji", "Promocja niepoprawnie dodana")
+
+    def test_tworzenie_konta_po_2000(self):
+        konto_po_2000 = Konto(self.imie, self.nazwisko, "04300199987")
+        self.assertEqual(konto_po_2000.sprawdz_rok_urodzenia(), 2004, "Niepoprawne obliczenie roku urodzenia!")
+        
