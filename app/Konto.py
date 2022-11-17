@@ -49,3 +49,23 @@ class Konto:
             self.saldo -= kwota + self.oplata_ekspres  
             self.historia.append(-kwota)
             self.historia.append(-self.oplata_ekspres)
+
+    def zaciagnij_kredyt(self, kwota):
+        warunki_spelnione = self.sprawdz_trzy_ostatnie_dodatnie(self.historia) or self.sprawdz_suma_pieciu(self.historia, kwota)
+
+        if warunki_spelnione:
+            self.saldo += kwota
+
+        return warunki_spelnione
+
+    def sprawdz_trzy_ostatnie_dodatnie(self, historia):
+        if len(historia) >= 3:
+            if all(elem > 0 for elem in historia[-3:]):
+                return True
+        return False
+        
+    def sprawdz_suma_pieciu(self, historia, kwota):
+        if len(historia) >= 5:
+            if sum(historia[-5:]) > kwota:
+                return True
+        return False
