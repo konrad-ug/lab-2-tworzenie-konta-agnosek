@@ -51,17 +51,21 @@ class Konto:
             self.historia.append(-self.oplata_ekspres)
 
     def zaciagnij_kredyt(self, kwota):
-        czy_kredyt_udzielony = False
+        warunki_spelnione = self.sprawdz_trzy_ostatnie_dodatnie(self.historia) or self.sprawdz_suma_pieciu(self.historia, kwota)
 
-        if len(self.historia) >= 3:
-            if all(elem > 0 for elem in self.historia[-3:]):
-                czy_kredyt_udzielony = True
-
-        if len(self.historia) >= 5:
-            if sum(self.historia[-5:]) > kwota:
-                czy_kredyt_udzielony = True
-
-        if czy_kredyt_udzielony:
+        if warunki_spelnione:
             self.saldo += kwota
 
-        return czy_kredyt_udzielony
+        return warunki_spelnione
+
+    def sprawdz_trzy_ostatnie_dodatnie(self, historia):
+        if len(historia) >= 3:
+            if all(elem > 0 for elem in historia[-3:]):
+                return True
+        return False
+        
+    def sprawdz_suma_pieciu(self, historia, kwota):
+        if len(historia) >= 5:
+            if sum(historia[-5:]) > kwota:
+                return True
+        return False
