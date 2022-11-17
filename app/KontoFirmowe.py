@@ -11,3 +11,9 @@ class KontoFirmowe(Konto):
 
     def czy_poprawny_nip(self, nip):
         return len(nip) == 10
+
+    def zaciagnij_kredyt_firmowy(self, kwota):
+        if self.saldo >= 2*kwota and -1775 in self.historia:
+            self.saldo += kwota
+            return True
+        return False
