@@ -16,7 +16,9 @@ class TestZaciaganieKredytu(unittest.TestCase):
         ([20, 20], 100, False, 0),
         ([-20, -20, -20], 100, False, 0),
         ([20, -20, 20], 100, False, 0),
-        ([20, 20, 20, 20, 21], 100, True, 100)
+        ([20, 20, 20, 20, 21], 100, True, 100),
+        ([20, 20, 20, -10, 51], 100, True, 100),
+        ([10, 10, 10, 10, -10], 100, False, 0)
     ])
 
     def test_zaciaganie_kredytu(self, historia, kwota, oczekiwany_wynik, saldo):
